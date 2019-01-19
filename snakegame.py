@@ -5,6 +5,7 @@ import random
 
 from pygame.locals import *
 
+
 # Define Size
 WINDOW_WIDTH, WINDOW_HEIGHT = 800, 600
 GRID_SIZE = 20
@@ -64,15 +65,24 @@ class Feed(object):
         self.create()
 
     def create(self):
-        self.positions = (random.randint(0, GRID_WIDTH - 1) * GRID_SIZE, random.randint(0, GRID_HEIGHT - 1) * GRID_SIZE)
+        self.position = (random.randint(0, GRID_WIDTH - 1) * GRID_SIZE, random.randint(0, GRID_HEIGHT - 1) * GRID_SIZE)
 
     def draw(self, surface):
-        draw_object(surface, self.color, self.position)
+        #draw_object(surface, self.color, self.position)
+        display_image(surface, self.position)
+
+
 
 
 def draw_object(surface, color, pos):
     r = pygame.Rect((pos[0], pos[1]), (GRID_SIZE, GRID_SIZE))
     pygame.draw.rect(surface, color, r)
+
+def display_image(surface, pos):
+    apple = pygame.image.load('apple.png')
+    apple = pygame.transform.scale(apple, (GRID_SIZE, GRID_SIZE))
+    surface.blit(apple, pos)
+
 
 def check_eat(python, feed):
     if python.positions[0] == feed.position:
@@ -95,13 +105,14 @@ if __name__ == '__main__':
 
     pygame.init()
     window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), 0, 32)
-    pygame.display.set_caption('Python Game')
+    pygame.display.set_caption('Snake Game')
     surface = pygame.Surface(window.get_size())
     surface = surface.convert()
     surface.fill(WHITE)
     clock = pygame.time.Clock()
     pygame.key.set_repeat(1,40)
     window.blit(surface, (0, 0))
+
 
     while True:
         for event in pygame.event.get():
@@ -110,13 +121,14 @@ if __name__ == '__main__':
                 sys.exit()
             elif event.type == KEYDOWN:
                 if event.key == K_UP:
-                    python.control(UP)
+                    python.Direction = UP
                 elif event.key == K_DOWN:
-                    python.control(DOWN)
+                    python.Direction = DOWN
                 elif event.key == K_LEFT:
-                    python.control(LEFT)
+                    python.Direction = LEFT
                 elif event.key == K_RIGHT:
-                    python.control(RIGHT)
+                    python.Direction = RIGHT
+                
         
         surface.fill(WHITE)
         python.move()
@@ -129,5 +141,4 @@ if __name__ == '__main__':
         pygame.display.flip()
         pygame.display.update()
         clock.tick(speed)
-
-
+        
