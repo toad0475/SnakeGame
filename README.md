@@ -3,4 +3,4 @@
 * To execute this game, you need to install Pygame module
 * You can install it using pip shown below.
 
-<pre><code>pip install Pygame</code></pre>
+<pre><code>pip install pygame</code></pre>
