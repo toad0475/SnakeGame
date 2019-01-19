@@ -1,2 +1,6 @@
 # SnakeGame
-SnakeGame using Pygame.
+This is SnakeGame scripted by python.
+To execute this game, you need to install Pygame module
+You can install it using pip shown below.
+
+pip install Pygame
